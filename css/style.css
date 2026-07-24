@@ -1,0 +1,135 @@
+/* Reset global */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body, html {
+    height: 100%;
+    font-family: 'Fredoka One', cursive;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.screen {
+    display: none;
+    height: 100dvh; 
+    width: 100vw;
+    background-size: 100% 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 20px;
+    position: relative;
+}
+
+.active { display: flex !important; }
+
+/* Accessibilité Clavier */
+[tabindex="0"]:focus {
+    outline: 5px solid #FFD700;
+    outline-offset: 5px;
+    border-radius: 15px;
+}
+
+/* --- ACCUEIL --- */
+#home-screen { background-image: url('../assets/ui/bg_background.webp'); }
+.main-title {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    color: #FFD700;
+    text-shadow: 4px 4px 0px #FF4500;
+    margin-top: 2vh;
+    text-align: center;
+}
+
+/* --- BOUTONS JOYEUX --- */
+.btn-joyeux {
+    padding: 25px 80px;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-family: 'Fredoka One', cursive;
+    background: linear-gradient(#FF4500, #d33a00);
+    color: white;
+    border: 6px solid white;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #9e2a00, 0 10px 20px rgba(0,0,0,0.4); 
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+#btn-play {
+    margin-bottom: 10vh;
+    transform: translateY(-120px);
+}
+#btn-play:hover { transform: translateY(-120px) scale(1.05); }
+#btn-play:active { transform: translateY(-116px); box-shadow: 0 2px 0 #9e2a00; }
+
+#btn-replay {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+#btn-replay:active { transform: translateY(4px); box-shadow: 0 2px 0 #9e2a00; }
+
+.copyright {
+    position: absolute;
+    bottom: 15px; left: 15px;
+    font-size: 0.9rem; color: white;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 15px; border-radius: 20px;
+}
+
+/* --- CHOIX --- */
+#choice-screen { 
+    background-image: url('../assets/ui/bg_choix.webp'); 
+    justify-content: center !important; gap: 20px;
+}
+.title-univers {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.8);
+    transform: translateY(-20px); 
+}
+.univers-container {
+    display: flex; gap: 40px;
+    justify-content: center; align-items: center;
+    width: 100%; padding: 20px;
+    transform: translateY(-20px); 
+}
+.univers-card { cursor: pointer; text-align: center; transition: transform 0.3s; width: 25%; max-width: 350px; }
+.univers-card:hover { transform: scale(1.05); }
+.univers-card img { width: 100%; border: 10px solid white; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+.univers-card p { color: white; font-size: clamp(1.2rem, 2vw, 2rem); margin-top: 15px; text-shadow: 2px 2px 4px black; }
+
+/* --- JEU --- */
+#game-screen { background-image: url('../assets/ui/bg_fond.webp'); }
+.grid-container {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 12px; width: 85%; max-width: 1000px; margin: auto;
+}
+
+@media (max-width: 768px) {
+    .grid-container { grid-template-columns: repeat(4, 1fr); }
+    .univers-container { flex-direction: column; gap: 10px; }
+    .univers-card { width: 50%; }
+}
+
+.card { aspect-ratio: 1/1; perspective: 1000px; cursor: pointer; }
+.card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+.card.flipped .card-inner { transform: rotateY(180deg); }
+.card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; border: 4px solid white; }
+.card-back { background-size: cover; background-position: center; }
+.card-front { transform: rotateY(180deg); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: white; }
+
+.btn-small { padding: 10px 30px; font-family: 'Fredoka One'; font-size: 1.2rem; background: #555; color: white; border: 3px solid white; border-radius: 30px; cursor: pointer; margin-bottom: 20px; }
+
+/* UI JEU */
+.counter-display { position: absolute; top: 20px; right: 20px; background: #FF4500; color: white; padding: 10px 20px; border-radius: 15px; border: 3px solid white; font-size: 1.5rem; z-index: 100; }
+.sound-toggle { position: absolute; top: 90px; right: 30px; width: 60px; cursor: pointer; z-index: 500; transition: transform 0.2s; }
+
+/* MODAL */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+.modal-content { background: white; border-radius: 40px; border: 8px solid #FFD700; display: flex; padding: 30px; max-width: 700px; width: 90%; align-items: center; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.modal-left { flex: 1; text-align: center; }
+.modal-left img { width: 180px; height: auto; }
+.modal-right { flex: 1.5; display: flex; flex-direction: column; align-items: center; padding-left: 20px; }
+.bravo-text { font-size: clamp(2rem, 5vw, 4rem); color: #FF4500; }
+#victory-message { font-size: 1.5rem; margin: 10px 0; color: #333; }
