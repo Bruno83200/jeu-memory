@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory pour Enfants</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- SECTION 1 : ACCUEIL -->
+    <section id="home-screen" class="screen active">
+        <h1 class="main-title">MEMORY POUR ENFANTS</h1>
+        <button id="btn-play" class="btn-joyeux">JOUEZ</button>
+        <div class="copyright">© 2026 - Créé par Bruno CULOT</div>
+    </section>
+
+    <!-- SECTION 2 : CHOIX DES UNIVERS -->
+    <section id="choice-screen" class="screen">
+        <h2 class="title-univers">LES UNIVERS</h2>
+        <div class="univers-container">
+            <div class="univers-card" data-theme="ferme" tabindex="0" role="button">
+                <img src="assets/ui/bg_ferme.webp" alt="La Ferme">
+                <p>LA FERME</p>
+            </div>
+            <div class="univers-card" data-theme="savane" tabindex="0" role="button">
+                <img src="assets/ui/bg_savane.webp" alt="La Savane">
+                <p>LA SAVANE</p>
+            </div>
+            <div class="univers-card" data-theme="papillons" tabindex="0" role="button">
+                <img src="assets/ui/bg_papillons.webp" alt="Les Papillons">
+                <p>LES PAPILLONS</p>
+            </div>
+        </div>
+        <button id="btn-quit" class="btn-small">QUITTER</button>
+    </section>
+
+    <!-- SECTION 3 : PLATEAU DE JEU -->
+    <section id="game-screen" class="screen">
+        <div id="counter-box" class="counter-display">COUPS : 0</div>
+        <img id="btn-sound" src="assets/ui/on.webp" alt="Son" class="sound-toggle" tabindex="0" role="button">
+        
+        <h2 id="current-theme-title" class="title-univers"></h2>
+        <div id="game-board" class="grid-container"></div>
+        
+        <button id="btn-back" class="btn-small">RETOUR</button>
+    </section>
+
+    <!-- FENÊTRE POPUP (VICTOIRE) -->
+    <div id="victory-popup" class="modal">
+        <div class="modal-content">
+            <div class="modal-left">
+                <img id="medal-img" src="assets/images/ferme/medaille_ferme.webp" alt="Médaille">
+            </div>
+            <div class="modal-right">
+                <h2 class="bravo-text">BRAVO !</h2>
+                <p id="victory-message">TU AS RÉUSSI EN <span id="final-moves">0</span> COUPS.</p>
+                <button id="btn-replay" class="btn-joyeux">REJOUER</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
