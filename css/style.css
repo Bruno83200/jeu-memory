@@ -1,135 +1,1138 @@
-/* Reset global */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ==========================================================================
+   MEMORY POUR ENFANTS — LIVRE D'IMAGES ENSOLEILLÉ (MOBILE-FIRST & TABLETTE/PC)
+   ========================================================================== */
 
-body, html {
-    height: 100%;
-    font-family: 'Fredoka One', cursive;
-    overflow: hidden;
-    background-color: #000;
+:root {
+  --font-playful: 'Fredoka', 'Comic Sans MS', 'Rounded Mplus 1c', system-ui, sans-serif;
+
+  --sun-400: #ffd43b;
+  --sun-500: #ffb703;
+  --coral-500: #ff5924;
+  --coral-600: #e03c0a;
+  --coral-700: #a62500;
+  --leaf-500: #38a84f;
+  --leaf-600: #258038;
+  --sky-500: #2b9be8;
+  --sky-600: #1772b5;
+  --berry-500: #e5498b;
+  --cream-50: #fffdf6;
+  --cream-100: #fff6df;
+  --ink-800: #2b241d;
+  --ink-500: #665848;
+
+  /* Couleur d'accent dynamique par univers */
+  --theme-accent: #38a84f;
+  --theme-accent-dark: #206b30;
+  --theme-tint: rgba(56, 168, 79, 0.16);
+
+  /* Zones sûres iOS / Android (encoche, barre d'accueil) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-playful);
+  background: #224420;
+  color: var(--ink-800);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 4px solid var(--sun-400);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   STRUCTURE DES ÉCRANS
+   ========================================================================== */
 
 .screen {
-    display: none;
-    height: 100dvh; 
-    width: 100vw;
-    background-size: 100% 100%; 
-    background-position: center;
-    background-repeat: no-repeat;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30px 20px;
-    position: relative;
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
 }
 
-.active { display: flex !important; }
-
-/* Accessibilité Clavier */
-[tabindex="0"]:focus {
-    outline: 5px solid #FFD700;
-    outline-offset: 5px;
-    border-radius: 15px;
+.screen.is-active {
+  display: flex;
+  flex-direction: column;
+  animation: screenFade 0.32s ease;
 }
 
-/* --- ACCUEIL --- */
-#home-screen { background-image: url('../assets/ui/bg_background.webp'); }
+@keyframes screenFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fonds plein écran sans jamais écraser ni déformer les illustrations */
+.screen-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.home-bg {
+  background-image: url('../assets/ui/bg_background.webp');
+  background-position: center 42%;
+}
+
+.choice-bg {
+  background-image: url('../assets/ui/bg_choix.webp');
+  background-position: center 38%;
+}
+
+.game-bg {
+  background-image: url('../assets/ui/bg_fond.webp');
+  background-position: center center;
+}
+
+/* Très léger voile clair uniquement en haut/bas pour la lisibilité des titres sans assombrir le dessin */
+.home-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 46, 78, 0.24) 0%,
+    rgba(16, 46, 78, 0.0) 34%,
+    rgba(22, 34, 14, 0.0) 68%,
+    rgba(22, 34, 14, 0.34) 100%
+  );
+}
+
+.choice-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(14, 38, 66, 0.34) 0%,
+    rgba(14, 38, 66, 0.14) 45%,
+    rgba(18, 30, 12, 0.34) 100%
+  );
+}
+
+.game-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(255, 255, 255, 0.06) 35%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
+/* ==========================================================================
+   BOUTONS « JOUET EN BOIS DOUX »
+   ========================================================================== */
+
+.btn-toy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  border: 4px solid #ffffff;
+  border-radius: 999px;
+  transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.14s ease;
+}
+
+.btn-toy-hero {
+  padding: clamp(14px, 2.4vh, 22px) clamp(38px, 8vw, 72px);
+  font-size: clamp(1.55rem, 5.2vw, 2.6rem);
+  background: linear-gradient(180deg, #ff7034 0%, var(--coral-500) 55%, var(--coral-600) 100%);
+  box-shadow: 0 7px 0 var(--coral-700), 0 14px 28px rgba(0, 0, 0, 0.34);
+  animation: gentleBounce 2.6s ease-in-out infinite;
+}
+
+.btn-toy-hero .btn-icon {
+  width: clamp(26px, 4.4vw, 38px);
+  height: clamp(26px, 4.4vw, 38px);
+}
+
+.btn-toy-hero:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.btn-toy-hero:active {
+  transform: translateY(5px) scale(0.98);
+  box-shadow: 0 2px 0 var(--coral-700), 0 5px 12px rgba(0, 0, 0, 0.28);
+  animation: none;
+}
+
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.btn-toy-primary {
+  padding: 13px 28px;
+  font-size: clamp(1.05rem, 3.6vw, 1.3rem);
+  background: linear-gradient(180deg, #ff7034 0%, var(--coral-600) 100%);
+  box-shadow: 0 5px 0 var(--coral-700), 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.btn-toy-primary:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--coral-700);
+}
+
+.btn-toy-secondary {
+  padding: 13px 24px;
+  font-size: clamp(1rem, 3.4vw, 1.2rem);
+  background: linear-gradient(180deg, #42b4ff 0%, var(--sky-600) 100%);
+  box-shadow: 0 5px 0 #0d4b7a, 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.btn-toy-secondary:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #0d4b7a;
+}
+
+/* Boutons de navigation & icônes ronds (≥ 44px pour confort tactile smartphone) */
+.btn-pill-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 15px 8px 11px;
+  border-radius: 999px;
+  background: rgba(255, 253, 246, 0.95);
+  color: var(--ink-800);
+  border: 3px solid #ffffff;
+  font-size: 0.96rem;
+  font-weight: 700;
+  box-shadow: 0 4px 0 rgba(43, 36, 29, 0.24), 0 8px 18px rgba(0, 0, 0, 0.22);
+  transition: transform 0.12s ease;
+  flex-shrink: 0;
+}
+
+.btn-pill-nav svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.btn-pill-nav:active {
+  transform: translateY(3px);
+}
+
+.btn-icon-round {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 253, 246, 0.95);
+  color: var(--ink-800);
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 0 rgba(43, 36, 29, 0.24), 0 8px 18px rgba(0, 0, 0, 0.22);
+  transition: transform 0.12s ease, background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.btn-icon-round svg {
+  width: 22px;
+  height: 22px;
+}
+
+.btn-icon-round:active {
+  transform: translateY(3px);
+}
+
+.sound-btn {
+  background: linear-gradient(180deg, #ff6c37 0%, var(--coral-600) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 0 var(--coral-700), 0 8px 18px rgba(0, 0, 0, 0.24);
+}
+
+.sound-btn .icon-sound-off {
+  display: none;
+}
+
+.sound-btn.is-muted {
+  background: linear-gradient(180deg, #838b96 0%, #58606a 100%);
+  box-shadow: 0 4px 0 #393f47, 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.sound-btn.is-muted .icon-sound-on {
+  display: none;
+}
+
+.sound-btn.is-muted .icon-sound-off {
+  display: block;
+}
+
+/* ==========================================================================
+   ÉCRAN 1 : ACCUEIL
+   ========================================================================== */
+
+.home-layout {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding:
+    calc(var(--safe-top) + clamp(18px, 4vh, 38px))
+    calc(var(--safe-right) + 18px)
+    calc(var(--safe-bottom) + 16px)
+    calc(var(--safe-left) + 18px);
+}
+
+.home-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(255, 253, 246, 0.92);
+  color: var(--coral-600);
+  font-size: clamp(0.82rem, 2.8vw, 1rem);
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
 .main-title {
-    font-size: clamp(2.5rem, 8vw, 6rem);
-    color: #FFD700;
-    text-shadow: 4px 4px 0px #FF4500;
-    margin-top: 2vh;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--sun-400);
+  -webkit-text-stroke: clamp(2px, 0.45vw, 4px) #8c2400;
+  paint-order: stroke fill;
+  text-shadow:
+    0 5px 0 #9c2800,
+    0 10px 24px rgba(0, 0, 0, 0.42);
 }
 
-/* --- BOUTONS JOYEUX --- */
-.btn-joyeux {
-    padding: 25px 80px;
-    font-size: clamp(1.8rem, 5vw, 3rem);
-    font-family: 'Fredoka One', cursive;
-    background: linear-gradient(#FF4500, #d33a00);
-    color: white;
-    border: 6px solid white;
-    border-radius: 60px;
-    cursor: pointer;
-    box-shadow: 0 6px 0 #9e2a00, 0 10px 20px rgba(0,0,0,0.4); 
-    transition: transform 0.1s, box-shadow 0.1s;
+.title-line-1 {
+  font-size: clamp(3rem, 12vw, 6.2rem);
 }
 
-#btn-play {
-    margin-bottom: 10vh;
-    transform: translateY(-120px);
+.title-line-2 {
+  font-size: clamp(1.65rem, 6.2vw, 3.2rem);
+  color: #ffffff;
+  -webkit-text-stroke: clamp(1.8px, 0.35vw, 3px) #1f5c2e;
+  text-shadow:
+    0 4px 0 #1f5c2e,
+    0 8px 20px rgba(0, 0, 0, 0.36);
 }
-#btn-play:hover { transform: translateY(-120px) scale(1.05); }
-#btn-play:active { transform: translateY(-116px); box-shadow: 0 2px 0 #9e2a00; }
 
-#btn-replay {
-    padding: 15px 40px;
-    font-size: 1.5rem;
-    margin-top: 20px;
+.home-cta-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  margin-bottom: clamp(10px, 3vh, 26px);
 }
-#btn-replay:active { transform: translateY(4px); box-shadow: 0 2px 0 #9e2a00; }
+
+.home-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.home-pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 253, 246, 0.9);
+  color: var(--ink-800);
+  font-size: clamp(0.82rem, 2.8vw, 0.96rem);
+  font-weight: 600;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+.home-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 .copyright {
-    position: absolute;
-    bottom: 15px; left: 15px;
-    font-size: 0.9rem; color: white;
-    background: rgba(0,0,0,0.5);
-    padding: 5px 15px; border-radius: 20px;
+  padding: 5px 15px;
+  border-radius: 999px;
+  background: rgba(24, 30, 18, 0.56);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 500;
 }
 
-/* --- CHOIX --- */
-#choice-screen { 
-    background-image: url('../assets/ui/bg_choix.webp'); 
-    justify-content: center !important; gap: 20px;
-}
-.title-univers {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.8);
-    transform: translateY(-20px); 
-}
-.univers-container {
-    display: flex; gap: 40px;
-    justify-content: center; align-items: center;
-    width: 100%; padding: 20px;
-    transform: translateY(-20px); 
-}
-.univers-card { cursor: pointer; text-align: center; transition: transform 0.3s; width: 25%; max-width: 350px; }
-.univers-card:hover { transform: scale(1.05); }
-.univers-card img { width: 100%; border: 10px solid white; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-.univers-card p { color: white; font-size: clamp(1.2rem, 2vw, 2rem); margin-top: 15px; text-shadow: 2px 2px 4px black; }
+/* ==========================================================================
+   ÉCRAN 2 : CHOIX DES UNIVERS (SCROLLABLE SUR PETITS SMARTPHONES)
+   ========================================================================== */
 
-/* --- JEU --- */
-#game-screen { background-image: url('../assets/ui/bg_fond.webp'); }
-.grid-container {
-    display: grid; grid-template-columns: repeat(6, 1fr);
-    gap: 12px; width: 85%; max-width: 1000px; margin: auto;
+.choice-layout {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2.2vh, 22px);
+  padding:
+    calc(var(--safe-top) + 14px)
+    calc(var(--safe-right) + 16px)
+    calc(var(--safe-bottom) + 22px)
+    calc(var(--safe-left) + 16px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 768px) {
-    .grid-container { grid-template-columns: repeat(4, 1fr); }
-    .univers-container { flex-direction: column; gap: 10px; }
-    .univers-card { width: 50%; }
+.choice-topbar {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
 }
 
-.card { aspect-ratio: 1/1; perspective: 1000px; cursor: pointer; }
-.card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
-.card.flipped .card-inner { transform: rotateY(180deg); }
-.card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; border: 4px solid white; }
-.card-back { background-size: cover; background-position: center; }
-.card-front { transform: rotateY(180deg); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: white; }
+.choice-title-wrap {
+  text-align: center;
+}
 
-.btn-small { padding: 10px 30px; font-family: 'Fredoka One'; font-size: 1.2rem; background: #555; color: white; border: 3px solid white; border-radius: 30px; cursor: pointer; margin-bottom: 20px; }
+.section-title {
+  font-size: clamp(1.35rem, 5vw, 2.8rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+  -webkit-text-stroke: 2px rgba(24, 52, 84, 0.72);
+  paint-order: stroke fill;
+  text-shadow: 0 4px 0 rgba(24, 52, 84, 0.55), 0 8px 18px rgba(0, 0, 0, 0.35);
+}
 
-/* UI JEU */
-.counter-display { position: absolute; top: 20px; right: 20px; background: #FF4500; color: white; padding: 10px 20px; border-radius: 15px; border: 3px solid white; font-size: 1.5rem; z-index: 100; }
-.sound-toggle { position: absolute; top: 90px; right: 30px; width: 60px; cursor: pointer; z-index: 500; transition: transform 0.2s; }
+/* Sélecteur de difficulté (12 / 16 / 24 cartes) */
+.difficulty-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 26px;
+  background: rgba(255, 253, 246, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 3px solid #ffffff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+}
 
-/* MODAL */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
-.modal-content { background: white; border-radius: 40px; border: 8px solid #FFD700; display: flex; padding: 30px; max-width: 700px; width: 90%; align-items: center; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.modal-left { flex: 1; text-align: center; }
-.modal-left img { width: 180px; height: auto; }
-.modal-right { flex: 1.5; display: flex; flex-direction: column; align-items: center; padding-left: 20px; }
-.bravo-text { font-size: clamp(2rem, 5vw, 4rem); color: #FF4500; }
-#victory-message { font-size: 1.5rem; margin: 10px 0; color: #333; }
+.difficulty-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink-500);
+}
+
+.difficulty-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.diff-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 82px;
+  padding: 7px 13px;
+  border-radius: 16px;
+  background: #f2ead7;
+  color: var(--ink-800);
+  border: 2px solid transparent;
+  transition: all 0.16s ease;
+}
+
+.diff-pill strong {
+  font-size: 0.92rem;
+  line-height: 1.1;
+}
+
+.diff-pill span {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+
+.diff-pill.is-selected {
+  background: linear-gradient(180deg, #ff7034 0%, var(--coral-600) 100%);
+  color: #ffffff;
+  border-color: #ffffff;
+  box-shadow: 0 4px 0 var(--coral-700);
+  transform: translateY(-2px);
+}
+
+.diff-pill.is-selected span {
+  color: #fff3d6;
+}
+
+/* Grille des 3 univers : 3 colonnes sur PC/tablette, cartes horizontales compactes sur smartphone ! */
+.univers-grid {
+  width: 100%;
+  margin: auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2.6vw, 28px);
+  align-items: stretch;
+}
+
+.univers-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 12px 16px;
+  border-radius: 28px;
+  background: rgba(255, 253, 246, 0.96);
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 0 rgba(30, 44, 24, 0.25), 0 18px 34px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.univers-card:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+.univers-card:active {
+  transform: translateY(2px) scale(0.99);
+}
+
+/* Encadrement qui recadre proprement les coins noirs intégrés aux images d'univers */
+.univers-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 4px solid var(--card-accent, var(--leaf-500));
+  background: var(--cream-100);
+}
+
+.univers-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.09);
+  transition: transform 0.3s ease;
+}
+
+.univers-card:hover .univers-thumb img {
+  transform: scale(1.13);
+}
+
+.univers-card.theme-ferme { --card-accent: #42b14a; }
+.univers-card.theme-savane { --card-accent: #f39521; }
+.univers-card.theme-papillons { --card-accent: #e46ca2; }
+
+.univers-meta {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.univers-name {
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  color: var(--ink-800);
+  letter-spacing: 0.03em;
+}
+
+.univers-best {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ink-500);
+}
+
+.univers-medal-badge {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffe269 0%, #f0a800 100%);
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  z-index: 4;
+}
+
+.univers-medal-badge[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   ÉCRAN 3 : PLATEAU DE JEU (HUD PROPRE + GRILLE DYNAMIQUE ZÉRO SCROLL)
+   ========================================================================== */
+
+.game-layout {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding:
+    calc(var(--safe-top) + 10px)
+    calc(var(--safe-right) + 12px)
+    calc(var(--safe-bottom) + 12px)
+    calc(var(--safe-left) + 12px);
+  gap: 8px;
+}
+
+.game-hud {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.hud-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.hud-theme-title {
+  font-size: clamp(1.05rem, 3.6vw, 1.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.hud-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(255, 253, 246, 0.95);
+  border: 2.5px solid #ffffff;
+  color: var(--ink-800);
+  font-size: clamp(0.82rem, 2.8vw, 1rem);
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.stat-moves {
+  background: linear-gradient(180deg, #ff7034 0%, var(--coral-600) 100%);
+  color: #ffffff;
+}
+
+.hud-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Barre de progression */
+.progress-rail {
+  width: 100%;
+  max-width: 520px;
+  height: 10px;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 253, 246, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sun-400) 0%, #4cd964 100%);
+  transition: width 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Scène du plateau : occupe exactement tout l'espace restant */
+.board-stage {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0;
+}
+
+.game-board {
+  --cols: 6;
+  --card-size: 110px;
+  --card-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--card-size));
+  gap: var(--card-gap);
+  justify-content: center;
+  align-content: center;
+}
+
+/* ==========================================================================
+   CARTES 3D TACTILES
+   ========================================================================== */
+
+.card {
+  width: var(--card-size);
+  height: var(--card-size);
+  perspective: 900px;
+  padding: 0;
+  border-radius: clamp(10px, 2vw, 18px);
+  position: relative;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.52s cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+
+.card.is-flipped .card-inner,
+.card.is-matched .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: clamp(10px, 2vw, 18px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: clamp(2.5px, 0.55vw, 4.5px) solid #ffffff;
+  box-shadow: 0 5px 0 rgba(25, 34, 18, 0.24), 0 8px 16px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+}
+
+.card-back {
+  background-size: cover;
+  background-position: center;
+}
+
+/* Petit brillant discret sur le dos de la carte */
+.card-back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, transparent 52%);
+  pointer-events: none;
+}
+
+.card-front {
+  transform: rotateY(180deg);
+  background-color: #ffffff;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card:not(.is-flipped):not(.is-matched):hover .card-inner {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.card:not(.is-flipped):not(.is-matched):active .card-inner {
+  transform: scale(0.95);
+}
+
+/* Animation paire trouvée : petit rebond joyeux + bordure or/vert */
+.card.is-matched {
+  animation: matchPop 0.48s cubic-bezier(0.22, 1.4, 0.36, 1);
+  cursor: default;
+}
+
+.card.is-matched .card-front {
+  border-color: var(--sun-400);
+  box-shadow: 0 0 0 3px rgba(255, 212, 59, 0.55), 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+
+@keyframes matchPop {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Animation erreur douce : petit tremblement */
+.card.is-wrong {
+  animation: wrongShake 0.4s ease;
+}
+
+@keyframes wrongShake {
+  0%, 100% { transform: translateX(0); }
+  22% { transform: translateX(-6px); }
+  48% { transform: translateX(6px); }
+  74% { transform: translateX(-4px); }
+}
+
+/* ==========================================================================
+   MODALE DE VICTOIRE & CONFETTIS
+   ========================================================================== */
+
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 950;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:
+    calc(var(--safe-top) + 16px)
+    calc(var(--safe-right) + 16px)
+    calc(var(--safe-bottom) + 16px)
+    calc(var(--safe-left) + 16px);
+  background: rgba(15, 24, 18, 0.68);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 660px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 205px minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+  padding: clamp(20px, 4vw, 32px);
+  border-radius: 34px;
+  background: linear-gradient(180deg, #fffef9 0%, #fff6e0 100%);
+  border: 6px solid var(--sun-400);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  animation: modalPop 0.48s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.76) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-medal-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.medal-frame {
+  width: 184px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 4px solid var(--sun-400);
+  background: #1a060a;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.medal-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.victory-stars {
+  font-size: 1.9rem;
+  letter-spacing: 0.12em;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.modal-info-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.victory-kicker {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: #fff0b8;
+  color: #8f5400;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.bravo-text {
+  font-size: clamp(2.1rem, 7vw, 3.4rem);
+  line-height: 1;
+  color: var(--coral-500);
+  text-shadow: 0 3px 0 #ffd43b;
+}
+
+.victory-message {
+  font-size: clamp(1.08rem, 3.6vw, 1.38rem);
+  font-weight: 600;
+  color: var(--ink-800);
+}
+
+.victory-record {
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #dff8e5;
+  color: var(--leaf-600);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.modal-buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   RESPONSIVE SMARTPHONE (PORTRAIT & PAYSAGE)
+   ========================================================================== */
+
+@media (max-width: 760px) {
+  /* Écran choix : 3 cartes en bandeaux horizontaux élégants (tient facilement sur un smartphone !) */
+  .univers-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    gap: 12px;
+  }
+
+  .univers-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px 10px 10px;
+    border-radius: 24px;
+    text-align: left;
+  }
+
+  .univers-thumb {
+    width: clamp(78px, 24vw, 108px);
+    flex-shrink: 0;
+    border-radius: 16px;
+  }
+
+  .univers-meta {
+    margin-top: 0;
+    align-items: flex-start;
+  }
+
+  .univers-name {
+    font-size: clamp(1.18rem, 4.8vw, 1.42rem);
+  }
+
+  .univers-medal-badge {
+    top: -8px;
+    right: -6px;
+    width: 36px;
+    height: 36px;
+    font-size: 1.15rem;
+  }
+
+  /* Modale victoire empilée verticalement sur smartphone */
+  .modal-card {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 20px 18px 22px;
+    border-radius: 28px;
+  }
+
+  .medal-frame {
+    width: 132px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  .modal-buttons .btn-toy {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .btn-pill-nav .nav-label {
+    display: none;
+  }
+
+  .btn-pill-nav {
+    padding: 8px 11px;
+    min-width: 44px;
+    justify-content: center;
+  }
+
+  .stat-word {
+    display: none;
+  }
+
+  .stat-moves::before {
+    content: '🎯 ';
+  }
+
+  .difficulty-bar {
+    width: 100%;
+    padding: 8px 10px;
+  }
+
+  .difficulty-pills {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .diff-pill {
+    flex: 1;
+    min-width: 0;
+    padding: 7px 6px;
+  }
+}
+
+/* Smartphone en mode paysage (faible hauteur) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .game-layout {
+    gap: 4px;
+    padding-top: calc(var(--safe-top) + 6px);
+    padding-bottom: calc(var(--safe-bottom) + 6px);
+  }
+
+  .hud-center {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .progress-rail {
+    height: 7px;
+  }
+
+  .btn-pill-nav,
+  .btn-icon-round {
+    min-height: 38px;
+    height: 38px;
+  }
+
+  .btn-icon-round {
+    width: 38px;
+  }
+
+  .home-layout {
+    padding-top: 12px;
+    padding-bottom: 10px;
+  }
+
+  .title-line-1 { font-size: 2.5rem; }
+  .title-line-2 { font-size: 1.4rem; }
+  .btn-toy-hero { padding: 10px 36px; font-size: 1.4rem; }
+
+  .univers-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 100%;
+    gap: 12px;
+  }
+
+  .univers-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .univers-thumb {
+    width: min(112px, 100%);
+  }
+
+  .univers-meta {
+    align-items: center;
+    margin-top: 6px;
+  }
+}
