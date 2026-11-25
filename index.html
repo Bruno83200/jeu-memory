@@ -1,66 +1,248 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory pour Enfants</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#3da654" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Memory pour Enfants — La Ferme, La Savane &amp; Les Papillons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-    <!-- SECTION 1 : ACCUEIL -->
-    <section id="home-screen" class="screen active">
-        <h1 class="main-title">MEMORY POUR ENFANTS</h1>
-        <button id="btn-play" class="btn-joyeux">JOUEZ</button>
-        <div class="copyright">© 2026 - Créé par Bruno CULOT</div>
-    </section>
+  <!-- ========================================================
+       ÉCRAN 1 : ACCUEIL ENSOLEILLÉ
+       ======================================================== -->
+  <section id="home-screen" class="screen is-active" aria-label="Accueil">
+    <div class="screen-bg home-bg" aria-hidden="true"></div>
 
-    <!-- SECTION 2 : CHOIX DES UNIVERS -->
-    <section id="choice-screen" class="screen">
-        <h2 class="title-univers">LES UNIVERS</h2>
-        <div class="univers-container">
-            <div class="univers-card" data-theme="ferme" tabindex="0" role="button">
-                <img src="assets/ui/bg_ferme.webp" alt="La Ferme">
-                <p>LA FERME</p>
-            </div>
-            <div class="univers-card" data-theme="savane" tabindex="0" role="button">
-                <img src="assets/ui/bg_savane.webp" alt="La Savane">
-                <p>LA SAVANE</p>
-            </div>
-            <div class="univers-card" data-theme="papillons" tabindex="0" role="button">
-                <img src="assets/ui/bg_papillons.webp" alt="Les Papillons">
-                <p>LES PAPILLONS</p>
-            </div>
+    <div class="home-layout">
+      <header class="home-header">
+        <div class="home-kicker">
+          <span aria-hidden="true">✨</span>
+          <span>Jeu de mémoire illustré</span>
+          <span aria-hidden="true">✨</span>
         </div>
-        <button id="btn-quit" class="btn-small">QUITTER</button>
-    </section>
+        <h1 class="main-title">
+          <span class="title-line-1">MEMORY</span>
+          <span class="title-line-2">POUR ENFANTS</span>
+        </h1>
+      </header>
 
-    <!-- SECTION 3 : PLATEAU DE JEU -->
-    <section id="game-screen" class="screen">
-        <div id="counter-box" class="counter-display">COUPS : 0</div>
-        <img id="btn-sound" src="assets/ui/on.webp" alt="Son" class="sound-toggle" tabindex="0" role="button">
-        
-        <h2 id="current-theme-title" class="title-univers"></h2>
-        <div id="game-board" class="grid-container"></div>
-        
-        <button id="btn-back" class="btn-small">RETOUR</button>
-    </section>
+      <div class="home-cta-zone">
+        <button type="button" id="btn-play" class="btn-toy btn-toy-hero">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5.14v14l11-7-11-7Z" />
+          </svg>
+          <span>JOUER</span>
+        </button>
 
-    <!-- FENÊTRE POPUP (VICTOIRE) -->
-    <div id="victory-popup" class="modal">
-        <div class="modal-content">
-            <div class="modal-left">
-                <img id="medal-img" src="assets/images/ferme/medaille_ferme.webp" alt="Médaille">
-            </div>
-            <div class="modal-right">
-                <h2 class="bravo-text">BRAVO !</h2>
-                <p id="victory-message">TU AS RÉUSSI EN <span id="final-moves">0</span> COUPS.</p>
-                <button id="btn-replay" class="btn-joyeux">REJOUER</button>
-            </div>
+        <div class="home-badges" aria-label="3 univers disponibles">
+          <span class="home-pill">🐄 La Ferme</span>
+          <span class="home-pill">🦁 La Savane</span>
+          <span class="home-pill">🦋 Les Papillons</span>
         </div>
+      </div>
+
+      <footer class="home-footer">
+        <span class="copyright">© 2026 — Créé par Bruno CULOT</span>
+      </footer>
     </div>
+  </section>
 
-    <script src="js/script.js"></script>
+  <!-- ========================================================
+       ÉCRAN 2 : CHOIX DE L'UNIVERS & DE LA TAILLE DU PLATEAU
+       ======================================================== -->
+  <section id="choice-screen" class="screen" aria-label="Choix de l'univers">
+    <div class="screen-bg choice-bg" aria-hidden="true"></div>
+
+    <div class="choice-layout">
+      <header class="choice-topbar">
+        <button type="button" id="btn-quit" class="btn-pill-nav" aria-label="Retour à l'accueil">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          <span>Accueil</span>
+        </button>
+
+        <div class="choice-title-wrap">
+          <h2 class="section-title">CHOISIS TON UNIVERS</h2>
+        </div>
+
+        <button type="button" id="btn-sound-choice" class="btn-icon-round sound-btn" aria-label="Activer ou couper le son" title="Son">
+          <svg class="icon-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+          <svg class="icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" />
+            <line x1="22" y1="9" x2="16" y2="15" />
+            <line x1="16" y1="9" x2="22" y2="15" />
+          </svg>
+        </button>
+      </header>
+
+      <!-- Sélecteur de nombre de cartes (adapté aux âges & smartphones) -->
+      <div class="difficulty-bar" role="radiogroup" aria-label="Nombre de cartes">
+        <span class="difficulty-label">Niveau :</span>
+        <div class="difficulty-pills">
+          <button type="button" class="diff-pill" data-pairs="6" role="radio" aria-checked="false">
+            <strong>Facile</strong>
+            <span>12 cartes</span>
+          </button>
+          <button type="button" class="diff-pill" data-pairs="8" role="radio" aria-checked="false">
+            <strong>Moyen</strong>
+            <span>16 cartes</span>
+          </button>
+          <button type="button" class="diff-pill is-selected" data-pairs="12" role="radio" aria-checked="true">
+            <strong>Classique</strong>
+            <span>24 cartes</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Les 3 cartes d'univers -->
+      <div class="univers-grid">
+        <button type="button" class="univers-card theme-ferme" data-theme="ferme">
+          <span class="univers-medal-badge" data-medal-for="ferme" title="Médaille gagnée !" hidden>🏅</span>
+          <div class="univers-thumb">
+            <img src="assets/ui/bg_ferme.webp" alt="La Ferme" />
+          </div>
+          <div class="univers-meta">
+            <span class="univers-name">LA FERME</span>
+            <span class="univers-best" data-best-for="ferme">Prêt à jouer !</span>
+          </div>
+        </button>
+
+        <button type="button" class="univers-card theme-savane" data-theme="savane">
+          <span class="univers-medal-badge" data-medal-for="savane" title="Médaille gagnée !" hidden>🏅</span>
+          <div class="univers-thumb">
+            <img src="assets/ui/bg_savane.webp" alt="La Savane" />
+          </div>
+          <div class="univers-meta">
+            <span class="univers-name">LA SAVANE</span>
+            <span class="univers-best" data-best-for="savane">Prêt à jouer !</span>
+          </div>
+        </button>
+
+        <button type="button" class="univers-card theme-papillons" data-theme="papillons">
+          <span class="univers-medal-badge" data-medal-for="papillons" title="Médaille gagnée !" hidden>🏅</span>
+          <div class="univers-thumb">
+            <img src="assets/ui/bg_papillons.webp" alt="Les Papillons" />
+          </div>
+          <div class="univers-meta">
+            <span class="univers-name">LES PAPILLONS</span>
+            <span class="univers-best" data-best-for="papillons">Prêt à jouer !</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       ÉCRAN 3 : PLATEAU DE JEU (100 % ADAPTATIF SMARTPHONE & PC)
+       ======================================================== -->
+  <section id="game-screen" class="screen" aria-label="Plateau de jeu">
+    <div class="screen-bg game-bg" aria-hidden="true"></div>
+
+    <div class="game-layout">
+      <!-- Barre supérieure compacte sans chevauchement -->
+      <header class="game-hud">
+        <button type="button" id="btn-back" class="btn-pill-nav" aria-label="Retour aux univers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          <span class="nav-label">Univers</span>
+        </button>
+
+        <div class="hud-center">
+          <h2 id="current-theme-title" class="hud-theme-title">LA FERME</h2>
+          <div class="hud-stats">
+            <span class="stat-chip stat-pairs" aria-live="polite">
+              <span aria-hidden="true">⭐</span>
+              <span id="pairs-counter">0 / 12</span>
+            </span>
+            <span class="stat-chip stat-moves" aria-live="polite">
+              <span class="stat-word">Coups :</span>
+              <strong id="moves-counter">0</strong>
+            </span>
+          </div>
+        </div>
+
+        <div class="hud-actions">
+          <button type="button" id="btn-restart" class="btn-icon-round" aria-label="Recommencer la partie" title="Recommencer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+          </button>
+
+          <button type="button" id="btn-sound" class="btn-icon-round sound-btn" aria-label="Activer ou couper le son" title="Son">
+            <svg class="icon-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+            </svg>
+            <svg class="icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" />
+              <line x1="22" y1="9" x2="16" y2="15" />
+              <line x1="16" y1="9" x2="22" y2="15" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Barre de progression douce -->
+      <div class="progress-rail" aria-hidden="true">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+
+      <!-- Scène du plateau : calculée pour que toutes les cartes tiennent à l'écran -->
+      <main id="board-stage" class="board-stage">
+        <div id="game-board" class="game-board" role="grid" aria-label="Cartes du Memory"></div>
+      </main>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       MODALE DE VICTOIRE + CONFETTIS
+       ======================================================== -->
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <div id="victory-popup" class="modal" role="dialog" aria-modal="true" aria-labelledby="victory-heading" hidden>
+    <div class="modal-card">
+      <div class="modal-medal-col">
+        <div class="medal-frame">
+          <img id="medal-img" src="assets/images/ferme/medaille_ferme.webp" alt="Médaille d'or gagnée" />
+        </div>
+        <div id="victory-stars" class="victory-stars" aria-label="Étoiles gagnées">⭐⭐⭐</div>
+      </div>
+
+      <div class="modal-info-col">
+        <span class="victory-kicker" id="victory-kicker">Médaille d'Or remportée !</span>
+        <h2 id="victory-heading" class="bravo-text">BRAVO !</h2>
+        <p id="victory-message" class="victory-message">
+          Tu as réussi en <strong id="final-moves">0</strong> coups !
+        </p>
+        <p id="victory-record" class="victory-record" hidden>🏆 Nouveau record personnel !</p>
+
+        <div class="modal-buttons">
+          <button type="button" id="btn-replay-same" class="btn-toy btn-toy-primary">
+            REJOUER
+          </button>
+          <button type="button" id="btn-replay-choice" class="btn-toy btn-toy-secondary">
+            AUTRE UNIVERS
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/game.js"></script>
 </body>
 </html>
